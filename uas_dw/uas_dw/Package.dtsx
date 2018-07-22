@@ -1,0 +1,2949 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="7/7/2018 10:05:05 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="KIRIGIRI"
+  DTS:CreatorName="KIRIGIRI\John"
+  DTS:DTSID="{09A22633-BBF0-490F-AEC4-A61E214CE9C3}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3008.28"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="39"
+  DTS:VersionGUID="{21FDA4F1-EA9E-4606-AB04-93235EF58135}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[KIRIGIRI\SQLEXPRESS.uas_dwh]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{32B77FEE-37B9-4D8D-A088-43431258DDE6}"
+      DTS:ObjectName="KIRIGIRI\SQLEXPRESS.uas_dwh">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=KIRIGIRI\SQLEXPRESS;Initial Catalog=uas_dwh;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Uas Db]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{6703C1DF-B616-41A2-9B6F-CA5788559E43}"
+      DTS:ObjectName="Uas Db">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=KIRIGIRI\SQLEXPRESS;Initial Catalog=uas_db;Provider=SQLNCLI11.1;Integrated Security=SSPI;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\dwh"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{A7912AD1-79E6-4B52-B965-D16974285D93}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="dwh"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\dwh\dim_dokter"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="dim_dokter"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[dim_dokter]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\dwh\dim_dokter.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[KIRIGIRI\SQLEXPRESS.uas_dwh]"
+                  connectionManagerRefId="Package.ConnectionManagers[KIRIGIRI\SQLEXPRESS.uas_dwh]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\dwh\dim_dokter.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\dwh\dim_dokter.Inputs[OLE DB Destination Input].Columns[nama]"
+                      cachedCodepage="1252"
+                      cachedDataType="text"
+                      cachedName="nama"
+                      externalMetadataColumnId="Package\dwh\dim_dokter.Inputs[OLE DB Destination Input].ExternalColumns[nama]"
+                      lineageId="Package\dwh\dokter.Outputs[OLE DB Source Output].Columns[nama]" />
+                    <inputColumn
+                      refId="Package\dwh\dim_dokter.Inputs[OLE DB Destination Input].Columns[nodokter]"
+                      cachedDataType="i4"
+                      cachedName="nodokter"
+                      externalMetadataColumnId="Package\dwh\dim_dokter.Inputs[OLE DB Destination Input].ExternalColumns[nodokter]"
+                      lineageId="Package\dwh\dokter.Outputs[OLE DB Source Output].Columns[nodokter]" />
+                    <inputColumn
+                      refId="Package\dwh\dim_dokter.Inputs[OLE DB Destination Input].Columns[rangeharga]"
+                      cachedDataType="i4"
+                      cachedName="rangeharga"
+                      externalMetadataColumnId="Package\dwh\dim_dokter.Inputs[OLE DB Destination Input].ExternalColumns[rangeharga]"
+                      lineageId="Package\dwh\dokter.Outputs[OLE DB Source Output].Columns[rangeharga]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\dwh\dim_dokter.Inputs[OLE DB Destination Input].ExternalColumns[sk_dokter]"
+                      dataType="i4"
+                      name="sk_dokter" />
+                    <externalMetadataColumn
+                      refId="Package\dwh\dim_dokter.Inputs[OLE DB Destination Input].ExternalColumns[nodokter]"
+                      dataType="i4"
+                      name="nodokter" />
+                    <externalMetadataColumn
+                      refId="Package\dwh\dim_dokter.Inputs[OLE DB Destination Input].ExternalColumns[nama]"
+                      codePage="1252"
+                      dataType="text"
+                      name="nama" />
+                    <externalMetadataColumn
+                      refId="Package\dwh\dim_dokter.Inputs[OLE DB Destination Input].ExternalColumns[rangeharga]"
+                      dataType="i4"
+                      name="rangeharga" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\dwh\dim_dokter.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\dwh\dim_dokter.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\dwh\dim_dokter.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\dwh\dim_dokter.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\dwh\dim_dokter.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\dwh\dim_dokter.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\dwh\dim_kamar"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="dim_kamar"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[dim_kamar]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\dwh\dim_kamar.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[KIRIGIRI\SQLEXPRESS.uas_dwh]"
+                  connectionManagerRefId="Package.ConnectionManagers[KIRIGIRI\SQLEXPRESS.uas_dwh]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\dwh\dim_kamar.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\dwh\dim_kamar.Inputs[OLE DB Destination Input].Columns[nokamar]"
+                      cachedDataType="i4"
+                      cachedName="nokamar"
+                      externalMetadataColumnId="Package\dwh\dim_kamar.Inputs[OLE DB Destination Input].ExternalColumns[nokamar]"
+                      lineageId="Package\dwh\kamar.Outputs[OLE DB Source Output].Columns[nokamar]" />
+                    <inputColumn
+                      refId="Package\dwh\dim_kamar.Inputs[OLE DB Destination Input].Columns[norangekamar]"
+                      cachedDataType="i4"
+                      cachedName="norangekamar"
+                      externalMetadataColumnId="Package\dwh\dim_kamar.Inputs[OLE DB Destination Input].ExternalColumns[norangekamar]"
+                      lineageId="Package\dwh\kamar.Outputs[OLE DB Source Output].Columns[norangekamar]" />
+                    <inputColumn
+                      refId="Package\dwh\dim_kamar.Inputs[OLE DB Destination Input].Columns[harga]"
+                      cachedDataType="i4"
+                      cachedName="harga"
+                      externalMetadataColumnId="Package\dwh\dim_kamar.Inputs[OLE DB Destination Input].ExternalColumns[harga]"
+                      lineageId="Package\dwh\kamar.Outputs[OLE DB Source Output].Columns[harga]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\dwh\dim_kamar.Inputs[OLE DB Destination Input].ExternalColumns[sk_kamar]"
+                      dataType="i4"
+                      name="sk_kamar" />
+                    <externalMetadataColumn
+                      refId="Package\dwh\dim_kamar.Inputs[OLE DB Destination Input].ExternalColumns[nokamar]"
+                      dataType="i4"
+                      name="nokamar" />
+                    <externalMetadataColumn
+                      refId="Package\dwh\dim_kamar.Inputs[OLE DB Destination Input].ExternalColumns[norangekamar]"
+                      dataType="i4"
+                      name="norangekamar" />
+                    <externalMetadataColumn
+                      refId="Package\dwh\dim_kamar.Inputs[OLE DB Destination Input].ExternalColumns[harga]"
+                      dataType="i4"
+                      name="harga" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\dwh\dim_kamar.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\dwh\dim_kamar.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\dwh\dim_kamar.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\dwh\dim_kamar.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\dwh\dim_kamar.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\dwh\dim_kamar.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\dwh\dim_obat"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="dim_obat"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[dim_obat]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\dwh\dim_obat.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[KIRIGIRI\SQLEXPRESS.uas_dwh]"
+                  connectionManagerRefId="Package.ConnectionManagers[KIRIGIRI\SQLEXPRESS.uas_dwh]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\dwh\dim_obat.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\dwh\dim_obat.Inputs[OLE DB Destination Input].Columns[noobat]"
+                      cachedDataType="i4"
+                      cachedName="noobat"
+                      externalMetadataColumnId="Package\dwh\dim_obat.Inputs[OLE DB Destination Input].ExternalColumns[noobat]"
+                      lineageId="Package\dwh\obat.Outputs[OLE DB Source Output].Columns[noobat]" />
+                    <inputColumn
+                      refId="Package\dwh\dim_obat.Inputs[OLE DB Destination Input].Columns[namaobat]"
+                      cachedCodepage="1252"
+                      cachedDataType="text"
+                      cachedName="namaobat"
+                      externalMetadataColumnId="Package\dwh\dim_obat.Inputs[OLE DB Destination Input].ExternalColumns[namaobat]"
+                      lineageId="Package\dwh\obat.Outputs[OLE DB Source Output].Columns[namaobat]" />
+                    <inputColumn
+                      refId="Package\dwh\dim_obat.Inputs[OLE DB Destination Input].Columns[harga]"
+                      cachedDataType="i4"
+                      cachedName="harga"
+                      externalMetadataColumnId="Package\dwh\dim_obat.Inputs[OLE DB Destination Input].ExternalColumns[harga]"
+                      lineageId="Package\dwh\obat.Outputs[OLE DB Source Output].Columns[harga]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\dwh\dim_obat.Inputs[OLE DB Destination Input].ExternalColumns[sk_obat]"
+                      dataType="i4"
+                      name="sk_obat" />
+                    <externalMetadataColumn
+                      refId="Package\dwh\dim_obat.Inputs[OLE DB Destination Input].ExternalColumns[noobat]"
+                      dataType="i4"
+                      name="noobat" />
+                    <externalMetadataColumn
+                      refId="Package\dwh\dim_obat.Inputs[OLE DB Destination Input].ExternalColumns[namaobat]"
+                      codePage="1252"
+                      dataType="text"
+                      name="namaobat" />
+                    <externalMetadataColumn
+                      refId="Package\dwh\dim_obat.Inputs[OLE DB Destination Input].ExternalColumns[harga]"
+                      dataType="i4"
+                      name="harga" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\dwh\dim_obat.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\dwh\dim_obat.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\dwh\dim_obat.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\dwh\dim_obat.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\dwh\dim_obat.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\dwh\dim_obat.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\dwh\dokter"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="dokter"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[dokter]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\dwh\dokter.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Uas Db]"
+                  connectionManagerRefId="Package.ConnectionManagers[Uas Db]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\dwh\dokter.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\dwh\dokter.Outputs[OLE DB Source Output].Columns[nama]"
+                      codePage="1252"
+                      dataType="text"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\dwh\dokter.Outputs[OLE DB Source Output].ExternalColumns[nama]"
+                      lineageId="Package\dwh\dokter.Outputs[OLE DB Source Output].Columns[nama]"
+                      name="nama"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\dwh\dokter.Outputs[OLE DB Source Output].Columns[nodokter]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\dwh\dokter.Outputs[OLE DB Source Output].ExternalColumns[nodokter]"
+                      lineageId="Package\dwh\dokter.Outputs[OLE DB Source Output].Columns[nodokter]"
+                      name="nodokter"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\dwh\dokter.Outputs[OLE DB Source Output].Columns[rangeharga]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\dwh\dokter.Outputs[OLE DB Source Output].ExternalColumns[rangeharga]"
+                      lineageId="Package\dwh\dokter.Outputs[OLE DB Source Output].Columns[rangeharga]"
+                      name="rangeharga"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\dwh\dokter.Outputs[OLE DB Source Output].ExternalColumns[nama]"
+                      codePage="1252"
+                      dataType="text"
+                      name="nama" />
+                    <externalMetadataColumn
+                      refId="Package\dwh\dokter.Outputs[OLE DB Source Output].ExternalColumns[nodokter]"
+                      dataType="i4"
+                      name="nodokter" />
+                    <externalMetadataColumn
+                      refId="Package\dwh\dokter.Outputs[OLE DB Source Output].ExternalColumns[rangeharga]"
+                      dataType="i4"
+                      name="rangeharga" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\dwh\dokter.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\dwh\dokter.Outputs[OLE DB Source Error Output].Columns[nama]"
+                      codePage="1252"
+                      dataType="text"
+                      lineageId="Package\dwh\dokter.Outputs[OLE DB Source Error Output].Columns[nama]"
+                      name="nama" />
+                    <outputColumn
+                      refId="Package\dwh\dokter.Outputs[OLE DB Source Error Output].Columns[nodokter]"
+                      dataType="i4"
+                      lineageId="Package\dwh\dokter.Outputs[OLE DB Source Error Output].Columns[nodokter]"
+                      name="nodokter" />
+                    <outputColumn
+                      refId="Package\dwh\dokter.Outputs[OLE DB Source Error Output].Columns[rangeharga]"
+                      dataType="i4"
+                      lineageId="Package\dwh\dokter.Outputs[OLE DB Source Error Output].Columns[rangeharga]"
+                      name="rangeharga" />
+                    <outputColumn
+                      refId="Package\dwh\dokter.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\dwh\dokter.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\dwh\dokter.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\dwh\dokter.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\dwh\kamar"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="kamar"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[kamar]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\dwh\kamar.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Uas Db]"
+                  connectionManagerRefId="Package.ConnectionManagers[Uas Db]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\dwh\kamar.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\dwh\kamar.Outputs[OLE DB Source Output].Columns[nokamar]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\dwh\kamar.Outputs[OLE DB Source Output].ExternalColumns[nokamar]"
+                      lineageId="Package\dwh\kamar.Outputs[OLE DB Source Output].Columns[nokamar]"
+                      name="nokamar"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\dwh\kamar.Outputs[OLE DB Source Output].Columns[norangekamar]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\dwh\kamar.Outputs[OLE DB Source Output].ExternalColumns[norangekamar]"
+                      lineageId="Package\dwh\kamar.Outputs[OLE DB Source Output].Columns[norangekamar]"
+                      name="norangekamar"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\dwh\kamar.Outputs[OLE DB Source Output].Columns[harga]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\dwh\kamar.Outputs[OLE DB Source Output].ExternalColumns[harga]"
+                      lineageId="Package\dwh\kamar.Outputs[OLE DB Source Output].Columns[harga]"
+                      name="harga"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\dwh\kamar.Outputs[OLE DB Source Output].ExternalColumns[nokamar]"
+                      dataType="i4"
+                      name="nokamar" />
+                    <externalMetadataColumn
+                      refId="Package\dwh\kamar.Outputs[OLE DB Source Output].ExternalColumns[norangekamar]"
+                      dataType="i4"
+                      name="norangekamar" />
+                    <externalMetadataColumn
+                      refId="Package\dwh\kamar.Outputs[OLE DB Source Output].ExternalColumns[harga]"
+                      dataType="i4"
+                      name="harga" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\dwh\kamar.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\dwh\kamar.Outputs[OLE DB Source Error Output].Columns[nokamar]"
+                      dataType="i4"
+                      lineageId="Package\dwh\kamar.Outputs[OLE DB Source Error Output].Columns[nokamar]"
+                      name="nokamar" />
+                    <outputColumn
+                      refId="Package\dwh\kamar.Outputs[OLE DB Source Error Output].Columns[norangekamar]"
+                      dataType="i4"
+                      lineageId="Package\dwh\kamar.Outputs[OLE DB Source Error Output].Columns[norangekamar]"
+                      name="norangekamar" />
+                    <outputColumn
+                      refId="Package\dwh\kamar.Outputs[OLE DB Source Error Output].Columns[harga]"
+                      dataType="i4"
+                      lineageId="Package\dwh\kamar.Outputs[OLE DB Source Error Output].Columns[harga]"
+                      name="harga" />
+                    <outputColumn
+                      refId="Package\dwh\kamar.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\dwh\kamar.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\dwh\kamar.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\dwh\kamar.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\dwh\obat"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="obat"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[obat]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\dwh\obat.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Uas Db]"
+                  connectionManagerRefId="Package.ConnectionManagers[Uas Db]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\dwh\obat.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\dwh\obat.Outputs[OLE DB Source Output].Columns[noobat]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\dwh\obat.Outputs[OLE DB Source Output].ExternalColumns[noobat]"
+                      lineageId="Package\dwh\obat.Outputs[OLE DB Source Output].Columns[noobat]"
+                      name="noobat"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\dwh\obat.Outputs[OLE DB Source Output].Columns[namaobat]"
+                      codePage="1252"
+                      dataType="text"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\dwh\obat.Outputs[OLE DB Source Output].ExternalColumns[namaobat]"
+                      lineageId="Package\dwh\obat.Outputs[OLE DB Source Output].Columns[namaobat]"
+                      name="namaobat"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\dwh\obat.Outputs[OLE DB Source Output].Columns[harga]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\dwh\obat.Outputs[OLE DB Source Output].ExternalColumns[harga]"
+                      lineageId="Package\dwh\obat.Outputs[OLE DB Source Output].Columns[harga]"
+                      name="harga"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\dwh\obat.Outputs[OLE DB Source Output].ExternalColumns[noobat]"
+                      dataType="i4"
+                      name="noobat" />
+                    <externalMetadataColumn
+                      refId="Package\dwh\obat.Outputs[OLE DB Source Output].ExternalColumns[namaobat]"
+                      codePage="1252"
+                      dataType="text"
+                      name="namaobat" />
+                    <externalMetadataColumn
+                      refId="Package\dwh\obat.Outputs[OLE DB Source Output].ExternalColumns[harga]"
+                      dataType="i4"
+                      name="harga" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\dwh\obat.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\dwh\obat.Outputs[OLE DB Source Error Output].Columns[noobat]"
+                      dataType="i4"
+                      lineageId="Package\dwh\obat.Outputs[OLE DB Source Error Output].Columns[noobat]"
+                      name="noobat" />
+                    <outputColumn
+                      refId="Package\dwh\obat.Outputs[OLE DB Source Error Output].Columns[namaobat]"
+                      codePage="1252"
+                      dataType="text"
+                      lineageId="Package\dwh\obat.Outputs[OLE DB Source Error Output].Columns[namaobat]"
+                      name="namaobat" />
+                    <outputColumn
+                      refId="Package\dwh\obat.Outputs[OLE DB Source Error Output].Columns[harga]"
+                      dataType="i4"
+                      lineageId="Package\dwh\obat.Outputs[OLE DB Source Error Output].Columns[harga]"
+                      name="harga" />
+                    <outputColumn
+                      refId="Package\dwh\obat.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\dwh\obat.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\dwh\obat.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\dwh\obat.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\dwh.Paths[OLE DB Source Output]"
+              endId="Package\dwh\dim_dokter.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\dwh\dokter.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\dwh.Paths[OLE DB Source Output1]"
+              endId="Package\dwh\dim_kamar.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\dwh\kamar.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\dwh.Paths[OLE DB Source Output2]"
+              endId="Package\dwh\dim_obat.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\dwh\obat.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\fact transaksi"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{388650B0-CEAD-4EC6-8905-D2A959C774EB}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="fact transaksi"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\fact transaksi\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[fact_transaksi]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\fact transaksi\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[KIRIGIRI\SQLEXPRESS.uas_dwh]"
+                  connectionManagerRefId="Package.ConnectionManagers[KIRIGIRI\SQLEXPRESS.uas_dwh]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\fact transaksi\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\fact transaksi\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[sk_pasien]"
+                      cachedDataType="i4"
+                      cachedName="sk_pasien"
+                      externalMetadataColumnId="Package\fact transaksi\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[sk_pasien]"
+                      lineageId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].Columns[sk_pasien]" />
+                    <inputColumn
+                      refId="Package\fact transaksi\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[jumlahkunjungan]"
+                      cachedDataType="i4"
+                      cachedName="jumlahkunjungan"
+                      externalMetadataColumnId="Package\fact transaksi\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[jumlahkunjungan]"
+                      lineageId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].Columns[jumlahkunjungan]" />
+                    <inputColumn
+                      refId="Package\fact transaksi\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[jumlahobat]"
+                      cachedDataType="i4"
+                      cachedName="jumlahobat"
+                      externalMetadataColumnId="Package\fact transaksi\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[jumlahobat]"
+                      lineageId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].Columns[jumlahobat]" />
+                    <inputColumn
+                      refId="Package\fact transaksi\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[lamadirawat]"
+                      cachedDataType="i4"
+                      cachedName="lamadirawat"
+                      externalMetadataColumnId="Package\fact transaksi\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[lamadirawat]"
+                      lineageId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].Columns[lamadirawat]" />
+                    <inputColumn
+                      refId="Package\fact transaksi\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[totalbayar]"
+                      cachedDataType="i4"
+                      cachedName="totalbayar"
+                      externalMetadataColumnId="Package\fact transaksi\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[totalbayar]"
+                      lineageId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].Columns[totalbayar]" />
+                    <inputColumn
+                      refId="Package\fact transaksi\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[sk_obat]"
+                      cachedDataType="i4"
+                      cachedName="sk_obat"
+                      externalMetadataColumnId="Package\fact transaksi\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[sk_obat]"
+                      lineageId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].Columns[sk_obat]" />
+                    <inputColumn
+                      refId="Package\fact transaksi\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[sk_kamar]"
+                      cachedDataType="i4"
+                      cachedName="sk_kamar"
+                      externalMetadataColumnId="Package\fact transaksi\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[sk_kamar]"
+                      lineageId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].Columns[sk_kamar]" />
+                    <inputColumn
+                      refId="Package\fact transaksi\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[sk_dokter]"
+                      cachedDataType="i4"
+                      cachedName="sk_dokter"
+                      externalMetadataColumnId="Package\fact transaksi\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[sk_dokter]"
+                      lineageId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].Columns[sk_dokter]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\fact transaksi\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[sk_pasien]"
+                      dataType="i4"
+                      name="sk_pasien" />
+                    <externalMetadataColumn
+                      refId="Package\fact transaksi\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[jumlahkunjungan]"
+                      dataType="i4"
+                      name="jumlahkunjungan" />
+                    <externalMetadataColumn
+                      refId="Package\fact transaksi\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[jumlahobat]"
+                      dataType="i4"
+                      name="jumlahobat" />
+                    <externalMetadataColumn
+                      refId="Package\fact transaksi\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[lamadirawat]"
+                      dataType="i4"
+                      name="lamadirawat" />
+                    <externalMetadataColumn
+                      refId="Package\fact transaksi\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[totalbayar]"
+                      dataType="i4"
+                      name="totalbayar" />
+                    <externalMetadataColumn
+                      refId="Package\fact transaksi\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[sk_obat]"
+                      dataType="i4"
+                      name="sk_obat" />
+                    <externalMetadataColumn
+                      refId="Package\fact transaksi\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[sk_kamar]"
+                      dataType="i4"
+                      name="sk_kamar" />
+                    <externalMetadataColumn
+                      refId="Package\fact transaksi\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[sk_dokter]"
+                      dataType="i4"
+                      name="sk_dokter" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\fact transaksi\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\fact transaksi\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\fact transaksi\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\fact transaksi\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\fact transaksi\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\fact transaksi\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\fact transaksi\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT        dim_obat.sk_obat, dim_kamar.sk_kamar, dim_dokter.sk_dokter, dim_pasien.sk_pasien, transaksi.jumlahkunjungan, transaksi.jumlahobat, transaksi.lamadirawat, transaksi.totalbayar
+FROM            transaksi INNER JOIN
+                         dim_pasien ON transaksi.nopsn = dim_pasien.nopsn INNER JOIN
+                         dim_dokter ON transaksi.nodokter = dim_dokter.nodokter INNER JOIN
+                         dim_kamar ON transaksi.nokmr = dim_kamar.nokamar INNER JOIN
+                         dim_obat ON transaksi.noobat = dim_obat.noobat</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\fact transaksi\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[KIRIGIRI\SQLEXPRESS.uas_dwh]"
+                  connectionManagerRefId="Package.ConnectionManagers[KIRIGIRI\SQLEXPRESS.uas_dwh]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].Columns[sk_pasien]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[sk_pasien]"
+                      lineageId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].Columns[sk_pasien]"
+                      name="sk_pasien"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].Columns[jumlahkunjungan]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[jumlahkunjungan]"
+                      lineageId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].Columns[jumlahkunjungan]"
+                      name="jumlahkunjungan"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].Columns[jumlahobat]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[jumlahobat]"
+                      lineageId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].Columns[jumlahobat]"
+                      name="jumlahobat"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].Columns[lamadirawat]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[lamadirawat]"
+                      lineageId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].Columns[lamadirawat]"
+                      name="lamadirawat"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].Columns[totalbayar]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[totalbayar]"
+                      lineageId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].Columns[totalbayar]"
+                      name="totalbayar"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].Columns[sk_obat]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[sk_obat]"
+                      lineageId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].Columns[sk_obat]"
+                      name="sk_obat"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].Columns[sk_kamar]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[sk_kamar]"
+                      lineageId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].Columns[sk_kamar]"
+                      name="sk_kamar"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].Columns[sk_dokter]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[sk_dokter]"
+                      lineageId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].Columns[sk_dokter]"
+                      name="sk_dokter"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[sk_pasien]"
+                      dataType="i4"
+                      name="sk_pasien" />
+                    <externalMetadataColumn
+                      refId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[jumlahkunjungan]"
+                      dataType="i4"
+                      name="jumlahkunjungan" />
+                    <externalMetadataColumn
+                      refId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[jumlahobat]"
+                      dataType="i4"
+                      name="jumlahobat" />
+                    <externalMetadataColumn
+                      refId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[lamadirawat]"
+                      dataType="i4"
+                      name="lamadirawat" />
+                    <externalMetadataColumn
+                      refId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[totalbayar]"
+                      dataType="i4"
+                      name="totalbayar" />
+                    <externalMetadataColumn
+                      refId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[sk_obat]"
+                      dataType="i4"
+                      name="sk_obat" />
+                    <externalMetadataColumn
+                      refId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[sk_kamar]"
+                      dataType="i4"
+                      name="sk_kamar" />
+                    <externalMetadataColumn
+                      refId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[sk_dokter]"
+                      dataType="i4"
+                      name="sk_dokter" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[sk_pasien]"
+                      dataType="i4"
+                      lineageId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[sk_pasien]"
+                      name="sk_pasien" />
+                    <outputColumn
+                      refId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[jumlahkunjungan]"
+                      dataType="i4"
+                      lineageId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[jumlahkunjungan]"
+                      name="jumlahkunjungan" />
+                    <outputColumn
+                      refId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[jumlahobat]"
+                      dataType="i4"
+                      lineageId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[jumlahobat]"
+                      name="jumlahobat" />
+                    <outputColumn
+                      refId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[lamadirawat]"
+                      dataType="i4"
+                      lineageId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[lamadirawat]"
+                      name="lamadirawat" />
+                    <outputColumn
+                      refId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[totalbayar]"
+                      dataType="i4"
+                      lineageId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[totalbayar]"
+                      name="totalbayar" />
+                    <outputColumn
+                      refId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[sk_obat]"
+                      dataType="i4"
+                      lineageId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[sk_obat]"
+                      name="sk_obat" />
+                    <outputColumn
+                      refId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[sk_kamar]"
+                      dataType="i4"
+                      lineageId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[sk_kamar]"
+                      name="sk_kamar" />
+                    <outputColumn
+                      refId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[sk_dokter]"
+                      dataType="i4"
+                      lineageId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[sk_dokter]"
+                      name="sk_dokter" />
+                    <outputColumn
+                      refId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\fact transaksi.Paths[OLE DB Source Output]"
+              endId="Package\fact transaksi\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\fact transaksi\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\harga obat"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{D9FC3438-C616-4FF0-9429-BBAF6584B6AC}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="harga obat"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{6703C1DF-B616-41A2-9B6F-CA5788559E43}"
+          SQLTask:SqlStatementSource="update transaksi&#xA;set hargaobat = obat.harga&#xA;from transaksi join obat on obat.noobat = transaksi.noobat" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\nama pasien"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{806FBB18-0630-45DD-B257-E39B64266A2C}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="nama pasien"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{6703C1DF-B616-41A2-9B6F-CA5788559E43}"
+          SQLTask:BypassPrepare="False"
+          SQLTask:SqlStatementSource="update transaksi&#xA;set nama = pasien.nama&#xA;from transaksi join pasien on transaksi.nopsn = pasien.nopsn" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\pasien ke dwh"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{7B2FEB08-D2B5-4644-B2FC-83A40875D380}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="pasien ke dwh"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\pasien ke dwh\dim_pasien"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="dim_pasien"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[dim_pasien]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\pasien ke dwh\dim_pasien.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[KIRIGIRI\SQLEXPRESS.uas_dwh]"
+                  connectionManagerRefId="Package.ConnectionManagers[KIRIGIRI\SQLEXPRESS.uas_dwh]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\pasien ke dwh\dim_pasien.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\pasien ke dwh\dim_pasien.Inputs[OLE DB Destination Input].Columns[nopsn]"
+                      cachedDataType="i4"
+                      cachedName="nopsn"
+                      externalMetadataColumnId="Package\pasien ke dwh\dim_pasien.Inputs[OLE DB Destination Input].ExternalColumns[nopsn]"
+                      lineageId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Output].Columns[nopsn]" />
+                    <inputColumn
+                      refId="Package\pasien ke dwh\dim_pasien.Inputs[OLE DB Destination Input].Columns[nama]"
+                      cachedCodepage="1252"
+                      cachedDataType="text"
+                      cachedName="nama"
+                      externalMetadataColumnId="Package\pasien ke dwh\dim_pasien.Inputs[OLE DB Destination Input].ExternalColumns[nama]"
+                      lineageId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Output].Columns[nama]" />
+                    <inputColumn
+                      refId="Package\pasien ke dwh\dim_pasien.Inputs[OLE DB Destination Input].Columns[alamat]"
+                      cachedCodepage="1252"
+                      cachedDataType="text"
+                      cachedName="alamat"
+                      externalMetadataColumnId="Package\pasien ke dwh\dim_pasien.Inputs[OLE DB Destination Input].ExternalColumns[alamat]"
+                      lineageId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Output].Columns[alamat]" />
+                    <inputColumn
+                      refId="Package\pasien ke dwh\dim_pasien.Inputs[OLE DB Destination Input].Columns[kategoriKeluarga]"
+                      cachedCodepage="1252"
+                      cachedDataType="text"
+                      cachedName="kategoriKeluarga"
+                      externalMetadataColumnId="Package\pasien ke dwh\dim_pasien.Inputs[OLE DB Destination Input].ExternalColumns[kategoriKeluarga]"
+                      lineageId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Output].Columns[kategoriKeluarga]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\pasien ke dwh\dim_pasien.Inputs[OLE DB Destination Input].ExternalColumns[sk_pasien]"
+                      dataType="i4"
+                      name="sk_pasien" />
+                    <externalMetadataColumn
+                      refId="Package\pasien ke dwh\dim_pasien.Inputs[OLE DB Destination Input].ExternalColumns[nopsn]"
+                      dataType="i4"
+                      name="nopsn" />
+                    <externalMetadataColumn
+                      refId="Package\pasien ke dwh\dim_pasien.Inputs[OLE DB Destination Input].ExternalColumns[nama]"
+                      codePage="1252"
+                      dataType="text"
+                      name="nama" />
+                    <externalMetadataColumn
+                      refId="Package\pasien ke dwh\dim_pasien.Inputs[OLE DB Destination Input].ExternalColumns[alamat]"
+                      codePage="1252"
+                      dataType="text"
+                      name="alamat" />
+                    <externalMetadataColumn
+                      refId="Package\pasien ke dwh\dim_pasien.Inputs[OLE DB Destination Input].ExternalColumns[kategoriKeluarga]"
+                      codePage="1252"
+                      dataType="text"
+                      name="kategoriKeluarga" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\pasien ke dwh\dim_pasien.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\pasien ke dwh\dim_pasien.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\pasien ke dwh\dim_pasien.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\pasien ke dwh\dim_pasien.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\pasien ke dwh\dim_pasien.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\pasien ke dwh\dim_pasien.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\pasien ke dwh\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[transaksi]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\pasien ke dwh\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[KIRIGIRI\SQLEXPRESS.uas_dwh]"
+                  connectionManagerRefId="Package.ConnectionManagers[KIRIGIRI\SQLEXPRESS.uas_dwh]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\pasien ke dwh\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\pasien ke dwh\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[nopsn]"
+                      cachedDataType="i4"
+                      cachedName="nopsn"
+                      externalMetadataColumnId="Package\pasien ke dwh\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[nopsn]"
+                      lineageId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].Columns[nopsn]" />
+                    <inputColumn
+                      refId="Package\pasien ke dwh\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[nama]"
+                      cachedCodepage="1252"
+                      cachedDataType="text"
+                      cachedName="nama"
+                      externalMetadataColumnId="Package\pasien ke dwh\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[nama]"
+                      lineageId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].Columns[nama]" />
+                    <inputColumn
+                      refId="Package\pasien ke dwh\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[nokmr]"
+                      cachedDataType="i4"
+                      cachedName="nokmr"
+                      externalMetadataColumnId="Package\pasien ke dwh\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[nokmr]"
+                      lineageId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].Columns[nokmr]" />
+                    <inputColumn
+                      refId="Package\pasien ke dwh\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[nodokter]"
+                      cachedDataType="i4"
+                      cachedName="nodokter"
+                      externalMetadataColumnId="Package\pasien ke dwh\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[nodokter]"
+                      lineageId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].Columns[nodokter]" />
+                    <inputColumn
+                      refId="Package\pasien ke dwh\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[noobat]"
+                      cachedDataType="i4"
+                      cachedName="noobat"
+                      externalMetadataColumnId="Package\pasien ke dwh\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[noobat]"
+                      lineageId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].Columns[noobat]" />
+                    <inputColumn
+                      refId="Package\pasien ke dwh\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[hargaobat]"
+                      cachedDataType="i4"
+                      cachedName="hargaobat"
+                      externalMetadataColumnId="Package\pasien ke dwh\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[hargaobat]"
+                      lineageId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].Columns[hargaobat]" />
+                    <inputColumn
+                      refId="Package\pasien ke dwh\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[jumlahkunjungan]"
+                      cachedDataType="i4"
+                      cachedName="jumlahkunjungan"
+                      externalMetadataColumnId="Package\pasien ke dwh\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[jumlahkunjungan]"
+                      lineageId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].Columns[jumlahkunjungan]" />
+                    <inputColumn
+                      refId="Package\pasien ke dwh\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[jumlahobat]"
+                      cachedDataType="i4"
+                      cachedName="jumlahobat"
+                      externalMetadataColumnId="Package\pasien ke dwh\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[jumlahobat]"
+                      lineageId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].Columns[jumlahobat]" />
+                    <inputColumn
+                      refId="Package\pasien ke dwh\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[lamadirawat]"
+                      cachedDataType="i4"
+                      cachedName="lamadirawat"
+                      externalMetadataColumnId="Package\pasien ke dwh\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[lamadirawat]"
+                      lineageId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].Columns[lamadirawat]" />
+                    <inputColumn
+                      refId="Package\pasien ke dwh\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[totalbayar]"
+                      cachedDataType="i4"
+                      cachedName="totalbayar"
+                      externalMetadataColumnId="Package\pasien ke dwh\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[totalbayar]"
+                      lineageId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].Columns[totalbayar]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\pasien ke dwh\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[nopsn]"
+                      dataType="i4"
+                      name="nopsn" />
+                    <externalMetadataColumn
+                      refId="Package\pasien ke dwh\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[nama]"
+                      codePage="1252"
+                      dataType="text"
+                      name="nama" />
+                    <externalMetadataColumn
+                      refId="Package\pasien ke dwh\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[nokmr]"
+                      dataType="i4"
+                      name="nokmr" />
+                    <externalMetadataColumn
+                      refId="Package\pasien ke dwh\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[nodokter]"
+                      dataType="i4"
+                      name="nodokter" />
+                    <externalMetadataColumn
+                      refId="Package\pasien ke dwh\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[noobat]"
+                      dataType="i4"
+                      name="noobat" />
+                    <externalMetadataColumn
+                      refId="Package\pasien ke dwh\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[hargaobat]"
+                      dataType="i4"
+                      name="hargaobat" />
+                    <externalMetadataColumn
+                      refId="Package\pasien ke dwh\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[jumlahkunjungan]"
+                      dataType="i4"
+                      name="jumlahkunjungan" />
+                    <externalMetadataColumn
+                      refId="Package\pasien ke dwh\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[jumlahobat]"
+                      dataType="i4"
+                      name="jumlahobat" />
+                    <externalMetadataColumn
+                      refId="Package\pasien ke dwh\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[lamadirawat]"
+                      dataType="i4"
+                      name="lamadirawat" />
+                    <externalMetadataColumn
+                      refId="Package\pasien ke dwh\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[totalbayar]"
+                      dataType="i4"
+                      name="totalbayar" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\pasien ke dwh\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\pasien ke dwh\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\pasien ke dwh\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\pasien ke dwh\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\pasien ke dwh\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\pasien ke dwh\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\pasien ke dwh\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[transaksi]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\pasien ke dwh\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Uas Db]"
+                  connectionManagerRefId="Package.ConnectionManagers[Uas Db]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].Columns[nopsn]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[nopsn]"
+                      lineageId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].Columns[nopsn]"
+                      name="nopsn"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].Columns[nama]"
+                      codePage="1252"
+                      dataType="text"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[nama]"
+                      lineageId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].Columns[nama]"
+                      name="nama"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].Columns[nokmr]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[nokmr]"
+                      lineageId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].Columns[nokmr]"
+                      name="nokmr"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].Columns[nodokter]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[nodokter]"
+                      lineageId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].Columns[nodokter]"
+                      name="nodokter"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].Columns[noobat]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[noobat]"
+                      lineageId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].Columns[noobat]"
+                      name="noobat"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].Columns[hargaobat]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[hargaobat]"
+                      lineageId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].Columns[hargaobat]"
+                      name="hargaobat"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].Columns[jumlahkunjungan]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[jumlahkunjungan]"
+                      lineageId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].Columns[jumlahkunjungan]"
+                      name="jumlahkunjungan"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].Columns[jumlahobat]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[jumlahobat]"
+                      lineageId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].Columns[jumlahobat]"
+                      name="jumlahobat"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].Columns[lamadirawat]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[lamadirawat]"
+                      lineageId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].Columns[lamadirawat]"
+                      name="lamadirawat"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].Columns[totalbayar]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[totalbayar]"
+                      lineageId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].Columns[totalbayar]"
+                      name="totalbayar"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[nopsn]"
+                      dataType="i4"
+                      name="nopsn" />
+                    <externalMetadataColumn
+                      refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[nama]"
+                      codePage="1252"
+                      dataType="text"
+                      name="nama" />
+                    <externalMetadataColumn
+                      refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[nokmr]"
+                      dataType="i4"
+                      name="nokmr" />
+                    <externalMetadataColumn
+                      refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[nodokter]"
+                      dataType="i4"
+                      name="nodokter" />
+                    <externalMetadataColumn
+                      refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[noobat]"
+                      dataType="i4"
+                      name="noobat" />
+                    <externalMetadataColumn
+                      refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[hargaobat]"
+                      dataType="i4"
+                      name="hargaobat" />
+                    <externalMetadataColumn
+                      refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[jumlahkunjungan]"
+                      dataType="i4"
+                      name="jumlahkunjungan" />
+                    <externalMetadataColumn
+                      refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[jumlahobat]"
+                      dataType="i4"
+                      name="jumlahobat" />
+                    <externalMetadataColumn
+                      refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[lamadirawat]"
+                      dataType="i4"
+                      name="lamadirawat" />
+                    <externalMetadataColumn
+                      refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[totalbayar]"
+                      dataType="i4"
+                      name="totalbayar" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[nopsn]"
+                      dataType="i4"
+                      lineageId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[nopsn]"
+                      name="nopsn" />
+                    <outputColumn
+                      refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[nama]"
+                      codePage="1252"
+                      dataType="text"
+                      lineageId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[nama]"
+                      name="nama" />
+                    <outputColumn
+                      refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[nokmr]"
+                      dataType="i4"
+                      lineageId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[nokmr]"
+                      name="nokmr" />
+                    <outputColumn
+                      refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[nodokter]"
+                      dataType="i4"
+                      lineageId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[nodokter]"
+                      name="nodokter" />
+                    <outputColumn
+                      refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[noobat]"
+                      dataType="i4"
+                      lineageId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[noobat]"
+                      name="noobat" />
+                    <outputColumn
+                      refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[hargaobat]"
+                      dataType="i4"
+                      lineageId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[hargaobat]"
+                      name="hargaobat" />
+                    <outputColumn
+                      refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[jumlahkunjungan]"
+                      dataType="i4"
+                      lineageId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[jumlahkunjungan]"
+                      name="jumlahkunjungan" />
+                    <outputColumn
+                      refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[jumlahobat]"
+                      dataType="i4"
+                      lineageId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[jumlahobat]"
+                      name="jumlahobat" />
+                    <outputColumn
+                      refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[lamadirawat]"
+                      dataType="i4"
+                      lineageId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[lamadirawat]"
+                      name="lamadirawat" />
+                    <outputColumn
+                      refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[totalbayar]"
+                      dataType="i4"
+                      lineageId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[totalbayar]"
+                      name="totalbayar" />
+                    <outputColumn
+                      refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\pasien ke dwh\pasien"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="pasien"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[pasien]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\pasien ke dwh\pasien.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Uas Db]"
+                  connectionManagerRefId="Package.ConnectionManagers[Uas Db]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Output].Columns[nopsn]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Output].ExternalColumns[nopsn]"
+                      lineageId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Output].Columns[nopsn]"
+                      name="nopsn"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Output].Columns[nama]"
+                      codePage="1252"
+                      dataType="text"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Output].ExternalColumns[nama]"
+                      lineageId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Output].Columns[nama]"
+                      name="nama"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Output].Columns[alamat]"
+                      codePage="1252"
+                      dataType="text"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Output].ExternalColumns[alamat]"
+                      lineageId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Output].Columns[alamat]"
+                      name="alamat"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Output].Columns[kategoriKeluarga]"
+                      codePage="1252"
+                      dataType="text"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Output].ExternalColumns[kategoriKeluarga]"
+                      lineageId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Output].Columns[kategoriKeluarga]"
+                      name="kategoriKeluarga"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Output].ExternalColumns[nopsn]"
+                      dataType="i4"
+                      name="nopsn" />
+                    <externalMetadataColumn
+                      refId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Output].ExternalColumns[nama]"
+                      codePage="1252"
+                      dataType="text"
+                      name="nama" />
+                    <externalMetadataColumn
+                      refId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Output].ExternalColumns[alamat]"
+                      codePage="1252"
+                      dataType="text"
+                      name="alamat" />
+                    <externalMetadataColumn
+                      refId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Output].ExternalColumns[kategoriKeluarga]"
+                      codePage="1252"
+                      dataType="text"
+                      name="kategoriKeluarga" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Error Output].Columns[nopsn]"
+                      dataType="i4"
+                      lineageId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Error Output].Columns[nopsn]"
+                      name="nopsn" />
+                    <outputColumn
+                      refId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Error Output].Columns[nama]"
+                      codePage="1252"
+                      dataType="text"
+                      lineageId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Error Output].Columns[nama]"
+                      name="nama" />
+                    <outputColumn
+                      refId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Error Output].Columns[alamat]"
+                      codePage="1252"
+                      dataType="text"
+                      lineageId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Error Output].Columns[alamat]"
+                      name="alamat" />
+                    <outputColumn
+                      refId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Error Output].Columns[kategoriKeluarga]"
+                      codePage="1252"
+                      dataType="text"
+                      lineageId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Error Output].Columns[kategoriKeluarga]"
+                      name="kategoriKeluarga" />
+                    <outputColumn
+                      refId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\pasien ke dwh.Paths[OLE DB Source Output]"
+              endId="Package\pasien ke dwh\dim_pasien.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\pasien ke dwh\pasien.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\pasien ke dwh.Paths[OLE DB Source Output1]"
+              endId="Package\pasien ke dwh\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\pasien ke dwh\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\total harga"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{89A8C747-F823-4C35-A1F4-F94761C10155}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="total harga"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{6703C1DF-B616-41A2-9B6F-CA5788559E43}"
+          SQLTask:BypassPrepare="False"
+          SQLTask:SqlStatementSource="UPDATE transaksi&#xA;set totalbayar = case when &#xA;p.kategoriKeluarga = 'sejahtera' &#xA;then ((t.hargaobat * t.jumlahobat) +( t.jumlahkunjungan * d.rangeharga )+ (t.lamadirawat * k.harga))&#xA;     else ((t.hargaobat * t.jumlahobat ) -(t.hargaobat * t.jumlahobat * 15 /100)) +( t.jumlahkunjungan * d.rangeharga )+ (t.lamadirawat * k.harga)&#xA;     end&#xA;from transaksi t join dokter d on t.nodokter = d.nodokter join kamar k on t.nokmr = k.nokamar join obat o on t.noobat = o.noobat join pasien p on  t.nopsn = p.nopsn" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\truncate"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{1C975D83-A5DF-4A1E-BE24-18FFA93B7E20}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="truncate"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{32B77FEE-37B9-4D8D-A088-43431258DDE6}"
+          SQLTask:SqlStatementSource="truncate table dim_dokter&#xA;truncate table dim_obat&#xA;truncate table dim_kamar&#xA;truncate table dim_pasien&#xA;truncate table transaksi&#xA;truncate table fact_transaksi&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{B925D9A8-D61D-4A37-BD92-8B41DBC71915}"
+      DTS:From="Package\truncate"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\dwh" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{6B8F5385-FA30-4C02-A98C-23CBDE8C2C32}"
+      DTS:From="Package\dwh"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\pasien ke dwh" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{47E99578-0544-48A5-8FD7-FFB947BF3EF8}"
+      DTS:From="Package\pasien ke dwh"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\fact transaksi" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{D9AD60D2-1570-4EA2-B326-78F2780FC0F6}"
+      DTS:From="Package\nama pasien"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\harga obat" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 4]"
+      DTS:CreationName=""
+      DTS:DTSID="{CA0E13F7-D063-4181-9C4A-099B910A8D76}"
+      DTS:From="Package\harga obat"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 4"
+      DTS:To="Package\total harga" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 5]"
+      DTS:CreationName=""
+      DTS:DTSID="{72BE930E-5DBD-460E-AB53-D9E321F2A322}"
+      DTS:From="Package\total harga"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 5"
+      DTS:To="Package\truncate" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="142,42"
+          Id="Package\fact transaksi"
+          TopLeft="603,140" />
+        <NodeLayout
+          Size="147,42"
+          Id="Package\pasien ke dwh"
+          TopLeft="451,208" />
+        <NodeLayout
+          Size="99,42"
+          Id="Package\dwh"
+          TopLeft="275.5,190.5" />
+        <NodeLayout
+          Size="118,42"
+          Id="Package\truncate"
+          TopLeft="460,133" />
+        <NodeLayout
+          Size="130,42"
+          Id="Package\harga obat"
+          TopLeft="135.5,42.5" />
+        <NodeLayout
+          Size="130,42"
+          Id="Package\total harga"
+          TopLeft="319,55" />
+        <NodeLayout
+          Size="139,42"
+          Id="Package\nama pasien"
+          TopLeft="205,108" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="460,154">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-85.5,51.8333333333333"
+              Start="0,0"
+              End="-78,51.8333333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-45.4174311926605,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-45.4174311926605,0"
+                    Point2="-49.4174311926605,0"
+                    Point3="-49.4174311926605,4" />
+                  <mssgle:LineSegment
+                    End="-49.4174311926605,47.8333333333333" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-49.4174311926605,47.8333333333333"
+                    Point2="-49.4174311926605,51.8333333333333"
+                    Point3="-53.4174311926605,51.8333333333333" />
+                  <mssgle:LineSegment
+                    End="-78,51.8333333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="374.5,217.166666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="76.5,11.8333333333333"
+              Start="0,0"
+              End="69,11.8333333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="28.2844036697248,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="28.2844036697248,0"
+                    Point2="32.2844036697248,0"
+                    Point3="32.2844036697248,4" />
+                  <mssgle:LineSegment
+                    End="32.2844036697248,7.83333333333334" />
+                  <mssgle:CubicBezierSegment
+                    Point1="32.2844036697248,7.83333333333334"
+                    Point2="32.2844036697248,11.8333333333333"
+                    Point3="36.2844036697248,11.8333333333333" />
+                  <mssgle:LineSegment
+                    End="69,11.8333333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="524.5,208">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="149.5,-26"
+              Start="0,0"
+              End="149.5,-18.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,-9" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,-9"
+                    Point2="0,-13"
+                    Point3="4,-13" />
+                  <mssgle:LineSegment
+                    End="145.5,-13" />
+                  <mssgle:CubicBezierSegment
+                    Point1="145.5,-13"
+                    Point2="149.5,-13"
+                    Point3="149.5,-17" />
+                  <mssgle:LineSegment
+                    End="149.5,-18.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="274.5,108">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-74,-23.5"
+              Start="0,0"
+              End="-74,-16">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,-7.75" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,-7.75"
+                    Point2="0,-11.75"
+                    Point3="-4,-11.75" />
+                  <mssgle:LineSegment
+                    End="-70,-11.75" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-70,-11.75"
+                    Point2="-74,-11.75"
+                    Point3="-74,-15.75" />
+                  <mssgle:LineSegment
+                    End="-74,-16" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 4]"
+          TopLeft="265.5,63.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="53.5,12.5"
+              Start="0,0"
+              End="46,12.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="22.75,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="22.75,0"
+                    Point2="26.75,0"
+                    Point3="26.75,4" />
+                  <mssgle:LineSegment
+                    End="26.75,8.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="26.75,8.5"
+                    Point2="26.75,12.5"
+                    Point3="30.75,12.5" />
+                  <mssgle:LineSegment
+                    End="46,12.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 5]"
+          TopLeft="384,97">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="135,36"
+              Start="0,0"
+              End="135,28.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,14"
+                    Point2="0,18"
+                    Point3="4,18" />
+                  <mssgle:LineSegment
+                    End="131,18" />
+                  <mssgle:CubicBezierSegment
+                    Point1="131,18"
+                    Point2="135,18"
+                    Point3="135,22" />
+                  <mssgle:LineSegment
+                    End="135,28.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <ConnectionManager
+    design-time-name="Package.ConnectionManagers[Uas Db]">
+    <DataSourceID>Uas Db</DataSourceID>
+  </ConnectionManager>
+  <TaskHost
+    design-time-name="Package\fact transaksi">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="171,42"
+          Id="Package\fact transaksi\OLE DB Destination"
+          TopLeft="427,58" />
+        <NodeLayout
+          Size="150,42"
+          Id="Package\fact transaksi\OLE DB Source"
+          TopLeft="109,65" />
+        <EdgeLayout
+          Id="Package\fact transaksi.Paths[OLE DB Source Output]"
+          TopLeft="259,82.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="168,0"
+              Start="0,0"
+              End="160.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="160.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\fact transaksi\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\fact transaksi\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\pasien ke dwh">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="109,42"
+          Id="Package\pasien ke dwh\pasien"
+          TopLeft="74,68" />
+        <NodeLayout
+          Size="150,42"
+          Id="Package\pasien ke dwh\OLE DB Source"
+          TopLeft="72,147" />
+        <NodeLayout
+          Size="132,42"
+          Id="Package\pasien ke dwh\dim_pasien"
+          TopLeft="379,102" />
+        <NodeLayout
+          Size="171,42"
+          Id="Package\pasien ke dwh\OLE DB Destination"
+          TopLeft="392,183" />
+        <EdgeLayout
+          Id="Package\pasien ke dwh.Paths[OLE DB Source Output1]"
+          TopLeft="222,168">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="170,36"
+              Start="0,0"
+              End="162.5,36">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="81,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="81,0"
+                    Point2="85,0"
+                    Point3="85,4" />
+                  <mssgle:LineSegment
+                    End="85,32" />
+                  <mssgle:CubicBezierSegment
+                    Point1="85,32"
+                    Point2="85,36"
+                    Point3="89,36" />
+                  <mssgle:LineSegment
+                    End="162.5,36" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\pasien ke dwh.Paths[OLE DB Source Output]"
+          TopLeft="183,89">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="196,34"
+              Start="0,0"
+              End="188.5,34">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="94,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="94,0"
+                    Point2="98,0"
+                    Point3="98,4" />
+                  <mssgle:LineSegment
+                    End="98,30" />
+                  <mssgle:CubicBezierSegment
+                    Point1="98,30"
+                    Point2="98,34"
+                    Point3="102,34" />
+                  <mssgle:LineSegment
+                    End="188.5,34" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\pasien ke dwh\pasien">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\pasien ke dwh\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\pasien ke dwh\dim_pasien">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\pasien ke dwh\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\dwh">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="123,42"
+          Id="Package\dwh\dim_obat"
+          TopLeft="479,117" />
+        <NodeLayout
+          Size="108,42"
+          Id="Package\dwh\kamar"
+          TopLeft="35,60" />
+        <NodeLayout
+          Size="131,42"
+          Id="Package\dwh\dim_kamar"
+          TopLeft="458,58" />
+        <NodeLayout
+          Size="109,42"
+          Id="Package\dwh\dokter"
+          TopLeft="37,3" />
+        <NodeLayout
+          Size="100,42"
+          Id="Package\dwh\obat"
+          TopLeft="34,113" />
+        <NodeLayout
+          Size="132,42"
+          Id="Package\dwh\dim_dokter"
+          TopLeft="372,9" />
+        <EdgeLayout
+          Id="Package\dwh.Paths[OLE DB Source Output]"
+          TopLeft="146,27">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="226,0"
+              Start="0,0"
+              End="218.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="218.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\dwh.Paths[OLE DB Source Output2]"
+          TopLeft="134,136">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="345,0"
+              Start="0,0"
+              End="337.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="337.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\dwh.Paths[OLE DB Source Output1]"
+          TopLeft="143,80">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="315,0"
+              Start="0,0"
+              End="307.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="307.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\dwh\dim_obat">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\dwh\kamar">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\dwh\dim_kamar">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\dwh\dokter">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\dwh\obat">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\dwh\dim_dokter">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

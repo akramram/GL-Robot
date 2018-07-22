@@ -1,0 +1,5 @@
+﻿  Source.cpp
+c:\users\john\desktop\projects\smt4\dwh\uas\uas\source.cpp(325): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
+c:\users\john\desktop\projects\smt4\dwh\uas\uas\source.cpp(328): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
+  UAS.vcxproj -> C:\Users\John\Desktop\Projects\SMT4\DWH\UAS\Debug\UAS.exe
+  UAS.vcxproj -> C:\Users\John\Desktop\Projects\SMT4\DWH\UAS\Debug\UAS.pdb (Partial PDB)
